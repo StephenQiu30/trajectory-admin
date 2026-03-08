@@ -8,17 +8,10 @@ export default [
     access: 'canAdmin',
   },
   {
-    name: '帖子管理',
-    path: '/admin/post',
-    component: './Admin/PostList',
-    icon: 'TableOutlined',
-    access: 'canAdmin',
-  },
-  {
-    name: '评论管理',
-    path: '/admin/comment',
-    component: './Admin/CommentList',
-    icon: 'MessageOutlined',
+    name: '图表管理',
+    path: '/admin/chart',
+    component: './Admin/ChartList',
+    icon: 'BarChartOutlined',
     access: 'canAdmin',
   },
   {
