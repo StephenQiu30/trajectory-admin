@@ -83,7 +83,7 @@ const Login: React.FC = () => {
       <div className={styles.content}>
         <div className={styles.loginCard}>
           <LoginForm
-            logo={<Image preview={false} width={48} alt="logo" src="/logo.svg" />}
+            logo={<Image preview={false} width={48} alt="logo" src="/logo.png" style={{ borderRadius: '8px' }} />}
             title={
               <Typography.Title level={3} style={{ marginBottom: 0 }}>
                 {STEPHEN_TITLE}
