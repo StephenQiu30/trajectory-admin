@@ -75,7 +75,7 @@ declare namespace API {
     title?: string;
     /** 通知内容 */
     content?: string;
-    /** 通知类型（system-系统通知，user-用户通知，comment-评论通知，like-点赞通知，follow-关注通知，broadcast-全员广播） */
+    /** 通知类型（system-系统通知，user-用户通知，analysis-分析通知，broadcast-全员广播） */
     type?: string;
     /** 业务幂等ID */
     bizId?: string;

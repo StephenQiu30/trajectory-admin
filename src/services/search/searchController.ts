@@ -14,33 +14,6 @@ export async function doSearchAll(body: API.SearchRequest, options?: { [key: str
   });
 }
 
-/** 批量同步帖子到 ES POST /search/post/batch/upsert */
-export async function batchUpsertPost(body: API.PostEsDTO[], options?: { [key: string]: any }) {
-  return request<API.BaseResponseBoolean>('/search/post/batch/upsert', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    data: body,
-    ...(options || {}),
-  });
-}
-
-/** 分页搜索帖子（从 ES 查询） POST /search/post/page */
-export async function searchPostByPage(
-  body: API.PostQueryRequest,
-  options?: { [key: string]: any },
-) {
-  return request<API.BaseResponsePage>('/search/post/page', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    data: body,
-    ...(options || {}),
-  });
-}
-
 /** 批量同步用户到 ES POST /search/user/batch/upsert */
 export async function batchUpsertUser(body: API.UserEsDTO[], options?: { [key: string]: any }) {
   return request<API.BaseResponseBoolean>('/search/user/batch/upsert', {

@@ -93,10 +93,10 @@ export default defineConfig({
    * @name 国际化插件
    * @doc https://umijs.org/docs/max/i18n
    */ /**
-   * @name antd 插件
-   * @description 内置了 babel import 插件
-   * @doc https://umijs.org/docs/max/antd#antd
-   */
+  * @name antd 插件
+  * @description 内置了 babel import 插件
+  * @doc https://umijs.org/docs/max/antd#antd
+  */
   antd: {},
   /**
    * @name 网络请求配置
@@ -137,36 +137,31 @@ export default defineConfig({
     {
       requestLibPath: "import { request } from '@umijs/max'",
       schemaPath: 'http://localhost:8082/api/v3/api-docs',
-      projectName: 'post',
-    },
-    {
-      requestLibPath: "import { request } from '@umijs/max'",
-      schemaPath: 'http://localhost:8083/api/v3/api-docs',
       projectName: 'notification',
     },
     {
       requestLibPath: "import { request } from '@umijs/max'",
-      schemaPath: 'http://localhost:8084/api/v3/api-docs',
+      schemaPath: 'http://localhost:8083/api/v3/api-docs',
       projectName: 'search',
     },
     {
       requestLibPath: "import { request } from '@umijs/max'",
-      schemaPath: 'http://localhost:8085/api/v3/api-docs',
+      schemaPath: 'http://localhost:8084/api/v3/api-docs',
       projectName: 'file',
     },
     {
       requestLibPath: "import { request } from '@umijs/max'",
-      schemaPath: 'http://localhost:8086/api/v3/api-docs',
+      schemaPath: 'http://localhost:8085/api/v3/api-docs',
       projectName: 'log',
     },
     {
       requestLibPath: "import { request } from '@umijs/max'",
-      schemaPath: 'http://localhost:8087/api/v3/api-docs',
+      schemaPath: 'http://localhost:8086/api/v3/api-docs',
       projectName: 'mail',
     },
     {
       requestLibPath: "import { request } from '@umijs/max'",
-      schemaPath: 'http://localhost:8089/api/v3/api-docs',
+      schemaPath: 'http://localhost:8087/api/v3/api-docs',
       projectName: 'ai',
     },
   ],
