@@ -82,15 +82,14 @@ const BasicSettings: React.FC = () => {
       const { onSuccess, onError, file } = options;
       const hide = message.loading('正在上传并更新头像...');
       try {
-        const formData = new FormData();
-        formData.append('file', file);
         const res = await addFile(
           {
             fileUploadRequest: {
               biz: FileUploadBiz.USER_AVATAR,
             },
           },
-          formData,
+          {},
+          file,
         );
         if (res.code === 0 && res.data?.url) {
           const newAvatar = res.data.url;

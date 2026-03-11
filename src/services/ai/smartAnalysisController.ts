@@ -115,12 +115,39 @@ export async function getChartVoById(
   });
 }
 
+/** 分页获取图表列表（封装类） 管理员可查看所有图表，普通用户只能查看自己的图表 POST /ai/analysis/list/page/vo */
+export async function listChartVoByPage(
+  body: API.ChartQueryRequest,
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponsePageChartVO>('/ai/analysis/list/page/vo', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
 /** 分页获取我的图表列表 POST /ai/analysis/my/list/page/vo */
 export async function listMyChartVoByPage(
   body: API.ChartQueryRequest,
   options?: { [key: string]: any },
 ) {
   return request<API.BaseResponsePageChartVO>('/ai/analysis/my/list/page/vo', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 更新图表 更新图表名称、目标、类型等基本信息 POST /ai/analysis/update */
+export async function updateChart(body: API.ChartUpdateRequest, options?: { [key: string]: any }) {
+  return request<API.BaseResponseBoolean>('/ai/analysis/update', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

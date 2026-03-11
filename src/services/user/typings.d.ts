@@ -200,12 +200,6 @@ declare namespace API {
     emailVerified?: number;
     /** 用户手机号 */
     userPhone?: string;
-    /** 微信公众号 OpenID */
-    mpOpenId?: string;
-    /** 微信 UnionID */
-    wxUnionId?: string;
-    /** 微信开放平台 OpenID */
-    wxOpenId?: string;
     /** GitHub ID */
     githubId?: string;
     /** GitHub 账号 */
@@ -273,10 +267,6 @@ declare namespace API {
     id?: number;
     /** 排除的用户ID */
     notId?: number;
-    /** 微信开放平台UnionID */
-    wxUnionId?: string;
-    /** 公众号OpenID */
-    mpOpenId?: string;
     /** 用户昵称 */
     userName?: string;
     /** 用户角色 */

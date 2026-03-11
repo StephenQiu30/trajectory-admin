@@ -1,7 +1,8 @@
 import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
 import { Button, message, Popconfirm, Space, Tag, Typography } from 'antd';
 import React, { useRef, useState } from 'react';
-import { deleteChart, listMyChartVoByPage } from '@/services/ai/smartAnalysisController';
+import { deleteChart, listChartVoByPage } from '@/services/ai/smartAnalysisController';
+import { ChartStatusEnumDesc } from '@/enums/ChartStatusEnum';
 
 /**
  * 图表管理列表
@@ -94,12 +95,7 @@ const ChartList: React.FC = () => {
             title: '状态',
             dataIndex: 'status',
             valueType: 'select',
-            valueEnum: {
-                wait: { text: '等待中', status: 'Default' },
-                running: { text: '分析中', status: 'Processing' },
-                succeed: { text: '已完成', status: 'Success' },
-                failed: { text: '失败', status: 'Error' },
-            },
+            valueEnum: ChartStatusEnumDesc,
             width: 100,
         },
         {
@@ -156,7 +152,7 @@ const ChartList: React.FC = () => {
                     const sortField = Object.keys(sort)?.[0] || 'createTime';
                     const sortOrder = sort?.[sortField] ?? 'descend';
 
-                    const { data, code } = await listMyChartVoByPage({
+                    const { data, code } = await listChartVoByPage({
                         ...params,
                         ...filter,
                         sortField,
