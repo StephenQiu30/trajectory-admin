@@ -142,26 +142,21 @@ export default defineConfig({
     {
       requestLibPath: "import { request } from '@umijs/max'",
       schemaPath: 'http://localhost:8083/api/v3/api-docs',
-      projectName: 'search',
-    },
-    {
-      requestLibPath: "import { request } from '@umijs/max'",
-      schemaPath: 'http://localhost:8084/api/v3/api-docs',
       projectName: 'file',
     },
     {
       requestLibPath: "import { request } from '@umijs/max'",
-      schemaPath: 'http://localhost:8085/api/v3/api-docs',
+      schemaPath: 'http://localhost:8084/api/v3/api-docs',
       projectName: 'log',
     },
     {
       requestLibPath: "import { request } from '@umijs/max'",
-      schemaPath: 'http://localhost:8086/api/v3/api-docs',
+      schemaPath: 'http://localhost:8085/api/v3/api-docs',
       projectName: 'mail',
     },
     {
       requestLibPath: "import { request } from '@umijs/max'",
-      schemaPath: 'http://localhost:8087/api/v3/api-docs',
+      schemaPath: 'http://localhost:8086/api/v3/api-docs',
       projectName: 'ai',
     },
   ],
