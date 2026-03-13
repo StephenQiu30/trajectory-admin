@@ -287,34 +287,24 @@ const NotificationList: React.FC = () => {
         }}
         scroll={{ x: 'max-content' }}
       />
-      {selectedRowsState?.length > 0 && (
-        <FooterToolbar
-          extra={
-            <div>
-              已选择 <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a> 项
-            </div>
-          }
-        >
-          <Space>
-            <Button
-              key="batchRead"
-              onClick={() => handleBatchMarkRead(selectedRowsState)}
-            >
-              批量已读
-            </Button>
-            <Popconfirm
-              key="batchDelete"
-              title="确定批量删除？"
-              description="删除后将无法恢复？"
-              onConfirm={() => handleBatchDelete(selectedRowsState)}
-            >
-              <Button danger type="primary">
-                批量删除
-              </Button>
-            </Popconfirm>
-          </Space>
-        </FooterToolbar>
-      )}
+        tableAlertOptionRender={({ selectedRowKeys, selectedRows, onCleanSelected }) => {
+          return (
+            <Space size={16}>
+              <Typography.Link onClick={() => handleBatchMarkRead(selectedRows)}>
+                批量已读
+              </Typography.Link>
+              <Popconfirm
+                title="确定批量删除？"
+                onConfirm={async () => {
+                  await handleBatchDelete(selectedRows);
+                  onCleanSelected();
+                }}
+              >
+                <Typography.Link type="danger">批量删除</Typography.Link>
+              </Popconfirm>
+            </Space>
+          );
+        }}
       <CreateNotificationModal
         visible={createModalVisible}
         onCancel={() => setCreateModalVisible(false)}

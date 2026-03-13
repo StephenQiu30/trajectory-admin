@@ -6,14 +6,8 @@
 import Footer from './Footer';
 import { AvatarDropdown, AvatarName } from './RightContent/AvatarDropdown';
 
-import { UserCard } from '@/components/ReUser';
-import { MarkdownEditor, MarkdownViewer } from './Markdown';
-
 export {
   Footer,
   AvatarDropdown,
   AvatarName,
-  UserCard,
-  MarkdownViewer,
-  MarkdownEditor,
 };

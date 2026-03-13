@@ -1,5 +1,5 @@
 import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
-import { Button, message, Popconfirm, Space, Tag, Typography } from 'antd';
+import { Button, message, Popconfirm, Space, Tag, Tooltip, Typography } from 'antd';
 import React, { useRef, useState } from 'react';
 import { deleteChart, listChartVoByPage } from '@/services/ai/smartAnalysisController';
 import { ChartStatusEnumDesc } from '@/enums/ChartStatusEnum';
@@ -97,6 +97,16 @@ const ChartList: React.FC = () => {
             valueType: 'select',
             valueEnum: ChartStatusEnumDesc,
             width: 100,
+            render: (text, record) => {
+                if (record.status === 'failed') {
+                    return (
+                        <Tooltip title={record.execMessage}>
+                            <Tag color="error">失败</Tag>
+                        </Tooltip>
+                    );
+                }
+                return text;
+            },
         },
         {
             title: '创建时间',

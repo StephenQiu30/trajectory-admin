@@ -141,25 +141,21 @@ const ApiAccessLog: React.FC = () => {
         }}
         scroll={{ x: 1200 }}
       />
-      {selectedRowsState?.length > 0 && (
-        <FooterToolbar
-          extra={
-            <div>
-              已选择 <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a> 项
-            </div>
-          }
-        >
-          <Popconfirm
-            title="确定批量删除？"
-            description="删除后将无法恢复？"
-            onConfirm={() => handleBatchDelete(selectedRowsState)}
-          >
-            <Button danger type="primary">
-              批量删除
-            </Button>
-          </Popconfirm>
-        </FooterToolbar>
-      )}
+        tableAlertOptionRender={({ selectedRows, onCleanSelected }) => {
+          return (
+            <Space size={16}>
+              <Popconfirm
+                title="确定批量删除？"
+                onConfirm={async () => {
+                  await handleBatchDelete(selectedRows);
+                  onCleanSelected();
+                }}
+              >
+                <Typography.Link type="danger">批量删除</Typography.Link>
+              </Popconfirm>
+            </Space>
+          );
+        }}
     </>
   );
 };

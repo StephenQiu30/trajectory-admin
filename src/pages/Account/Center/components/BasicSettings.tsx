@@ -143,6 +143,7 @@ const BasicSettings: React.FC = () => {
           <ProForm
             layout="vertical"
             onFinish={handleSubmit}
+            grid={true}
             submitter={{
               searchConfig: {
                 submitText: '更新基本信息',
@@ -153,19 +154,28 @@ const BasicSettings: React.FC = () => {
             hideRequiredMark
           >
             <ProFormText
-              width="md"
+              colProps={{ md: 12, xs: 24 }}
               name="userName"
               label="昵称"
               rules={[{ required: true, message: '请输入您的昵称!' }]}
             />
-            <ProFormTextArea name="userProfile" label="个人简介" placeholder="个人简介" />
             <ProFormText
-              width="md"
+              colProps={{ md: 12, xs: 24 }}
               name="userEmail"
               label="邮箱"
               rules={[{ type: 'email', message: '邮箱格式不正确!' }]}
             />
-            <ProFormText width="md" name="userPhone" label="联系电话" />
+            <ProFormText
+              colProps={{ md: 24, xs: 24 }}
+              name="userPhone"
+              label="联系电话"
+            />
+            <ProFormTextArea
+              colProps={{ md: 24, xs: 24 }}
+              name="userProfile"
+              label="个人简介"
+              placeholder="个人简介"
+            />
           </ProForm>
         </Col>
         <Col span={24} md={24} lg={8} xl={8}>

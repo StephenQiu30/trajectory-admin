@@ -6,7 +6,7 @@ import { userRole } from '@/enums/UserRoleEnum';
 import CreateUserModal from '@/pages/Admin/UserList/components/CreateUserModal';
 import UpdateUserModal from '@/pages/Admin/UserList/components/UpdateUserModal';
 import ViewUserModal from '@/pages/Admin/UserList/components/ViewUserModal';
-import { deleteUser, listUserByPage } from '@/services/user/userController';
+import { deleteUser, listUserByPage, updateUser } from '@/services/user/userController';
 
 /**
  * 用户管理列表
@@ -78,6 +78,7 @@ const UserList: React.FC = () => {
       hideInTable: true,
       copyable: true,
       ellipsis: true,
+      editable: false,
       width: 140,
     },
     {
@@ -93,6 +94,7 @@ const UserList: React.FC = () => {
       valueType: 'image',
       fieldProps: { width: 48 },
       hideInSearch: true,
+      editable: false,
       width: 80,
     },
     {
@@ -134,6 +136,7 @@ const UserList: React.FC = () => {
       valueType: 'dateTime',
       hideInForm: true,
       sorter: true,
+      editable: false,
       width: 160,
     },
     {
@@ -148,10 +151,9 @@ const UserList: React.FC = () => {
             <Typography.Link key="view">详情</Typography.Link>
           </ViewUserModal>
           <Typography.Link
-            key="update"
+            key="editable"
             onClick={() => {
-              setCurrentRow(record);
-              setUpdateModalVisible(true);
+              actionRef.current?.startEditable?.(record.id!);
             }}
           >
             修改
@@ -177,6 +179,21 @@ const UserList: React.FC = () => {
         actionRef={actionRef}
         rowKey="id"
         search={{ labelWidth: 100 }}
+        editable={{
+          type: 'multiple',
+          onSave: async (key, row) => {
+            const res = await updateUser({
+              id: row.id,
+              userRole: row.userRole,
+            });
+            if (res.code === 0) {
+              message.success('保存成功');
+              actionRef.current?.reload();
+            } else {
+              message.error(`保存失败: ${res.message}`);
+            }
+          },
+        }}
         toolBarRender={() => [
           <Button
             key="create"
