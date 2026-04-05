@@ -4,9 +4,7 @@ import { Button, message, Upload, Avatar, Row, Col, type UploadProps } from 'ant
 import { UploadOutlined } from '@ant-design/icons';
 import React from 'react';
 import { createStyles } from 'antd-style';
-import { FileUploadBiz } from '@/enums/FileUploadBizEnum';
-import { addFile } from '@/services/file/fileController';
-import { updateUser } from '@/services/user/userController';
+import { updateUser, uploadAvatar } from '@/services/user/userController';
 
 const useStyles = createStyles(({ token }) => {
   return {
@@ -82,15 +80,7 @@ const BasicSettings: React.FC = () => {
       const { onSuccess, onError, file } = options;
       const hide = message.loading('正在上传并更新头像...');
       try {
-        const res = await addFile(
-          {
-            fileUploadRequest: {
-              biz: FileUploadBiz.USER_AVATAR,
-            },
-          },
-          {},
-          file,
-        );
+        const res = await uploadAvatar({}, file);
         if (res.code === 0 && res.data?.url) {
           const newAvatar = res.data.url;
           // 同步更新服务器上的用户信息
@@ -165,11 +155,7 @@ const BasicSettings: React.FC = () => {
               label="邮箱"
               rules={[{ type: 'email', message: '邮箱格式不正确!' }]}
             />
-            <ProFormText
-              colProps={{ md: 24, xs: 24 }}
-              name="userPhone"
-              label="联系电话"
-            />
+            <ProFormText colProps={{ md: 24, xs: 24 }} name="userPhone" label="联系电话" />
             <ProFormTextArea
               colProps={{ md: 24, xs: 24 }}
               name="userProfile"

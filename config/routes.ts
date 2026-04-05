@@ -23,41 +23,6 @@ export default [
   },
 
   {
-    name: '日志管理',
-    path: '/admin/log',
-    icon: 'HistoryOutlined',
-    access: 'canAdmin',
-    routes: [
-      {
-        name: '文件上传日志',
-        path: '/admin/log/file/upload',
-        component: './Admin/Log/FileUploadRecord',
-      },
-      {
-        name: '邮件发送日志',
-        path: '/admin/log/email',
-        component: './Admin/Log/EmailRecord',
-      },
-
-      {
-        name: 'API 访问日志',
-        path: '/admin/log/api',
-        component: './Admin/Log/ApiAccessLog',
-      },
-      {
-        name: '操作日志',
-        path: '/admin/log/operation',
-        component: './Admin/Log/OperationLog',
-      },
-      {
-        name: '登录日志',
-        path: '/admin/log/login',
-        component: './Admin/Log/UserLoginLog',
-      },
-    ],
-  },
-
-  {
     path: '/user',
     layout: false,
     routes: [

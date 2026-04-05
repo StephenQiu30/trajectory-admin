@@ -1,12 +1,12 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
-import { Button, message, Popconfirm, Space, Typography } from 'antd';
+import { Button, message, Popconfirm, Space, Tag, Typography } from 'antd';
 import React, { useRef, useState } from 'react';
 import { userRole } from '@/enums/UserRoleEnum';
 import CreateUserModal from '@/pages/Admin/UserList/components/CreateUserModal';
 import UpdateUserModal from '@/pages/Admin/UserList/components/UpdateUserModal';
 import ViewUserModal from '@/pages/Admin/UserList/components/ViewUserModal';
-import { deleteUser, listUserByPage, updateUser } from '@/services/user/userController';
+import { deleteUser, listUserByPage } from '@/services/user/userController';
 
 /**
  * 用户管理列表
@@ -129,6 +129,10 @@ const UserList: React.FC = () => {
       dataIndex: 'userRole',
       valueType: 'select',
       valueEnum: userRole,
+      render: (_, record) => {
+        const color = record.userRole === 'admin' ? 'red' : 'blue';
+        return <Tag color={color}>{userRole[record.userRole!].text}</Tag>;
+      },
     },
     {
       title: '创建时间',
@@ -151,9 +155,10 @@ const UserList: React.FC = () => {
             <Typography.Link key="view">详情</Typography.Link>
           </ViewUserModal>
           <Typography.Link
-            key="editable"
+            key="update"
             onClick={() => {
-              actionRef.current?.startEditable?.(record.id!);
+              setCurrentRow(record);
+              setUpdateModalVisible(true);
             }}
           >
             修改
@@ -179,21 +184,6 @@ const UserList: React.FC = () => {
         actionRef={actionRef}
         rowKey="id"
         search={{ labelWidth: 100 }}
-        editable={{
-          type: 'multiple',
-          onSave: async (key, row) => {
-            const res = await updateUser({
-              id: row.id,
-              userRole: row.userRole,
-            });
-            if (res.code === 0) {
-              message.success('保存成功');
-              actionRef.current?.reload();
-            } else {
-              message.error(`保存失败: ${res.message}`);
-            }
-          },
-        }}
         toolBarRender={() => [
           <Button
             key="create"

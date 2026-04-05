@@ -1,4 +1,4 @@
-# 轨迹-基于AIGC的数据可视化平台 (trajectory-admin)
+# 轨迹-基于 AIGC 的数据可视化平台 (trajectory-admin)
 
 > 作者：[StephenQiu](https://github.com/Stephenqhd30)
 

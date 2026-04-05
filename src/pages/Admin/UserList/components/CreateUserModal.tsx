@@ -8,9 +8,7 @@ import {
 import { message, UploadProps } from 'antd';
 import React, { useState } from 'react';
 import { userRole } from '@/enums/UserRoleEnum';
-import { FileUploadBiz } from '@/enums/FileUploadBizEnum';
-import { addUser } from '@/services/user/userController';
-import { addFile } from '@/services/file/fileController';
+import { addUser, uploadAvatar } from '@/services/user/userController';
 
 interface Props {
   onCancel: () => void;
@@ -38,15 +36,7 @@ const CreateUserModal: React.FC<Props> = (props) => {
     customRequest: async (options: any) => {
       const { onSuccess, onError, file } = options;
       try {
-        const res = await addFile(
-          {
-            fileUploadRequest: {
-              biz: FileUploadBiz.USER_AVATAR,
-            },
-          },
-          {},
-          file,
-        );
+        const res = await uploadAvatar({}, file);
         if (res.code === 0 && res.data?.url) {
           onSuccess(res.data);
           setUserAvatar(res.data.url);

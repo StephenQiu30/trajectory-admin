@@ -1,4 +1,4 @@
-import { ActionType, FooterToolbar, ProColumns, ProTable } from '@ant-design/pro-components';
+import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
 import { Button, message, Popconfirm, Space, Tag, Typography } from 'antd';
 import React, { useRef, useState } from 'react';
 import {
@@ -23,7 +23,6 @@ const NotificationList: React.FC = () => {
   const [createModalVisible, setCreateModalVisible] = useState<boolean>(false);
   const [updateModalVisible, setUpdateModalVisible] = useState<boolean>(false);
   const [currentRow, setCurrentRow] = useState<API.Notification>();
-  const [selectedRowsState, setSelectedRows] = useState<API.Notification[]>([]);
 
   /**
    * 删除节点
@@ -61,7 +60,6 @@ const NotificationList: React.FC = () => {
       if (res.code === 0) {
         message.success('批量删除成功');
         actionRef.current?.reloadAndRest?.();
-        setSelectedRows([]);
       } else {
         message.error(`批量删除失败: ${res.message}`);
       }
@@ -108,7 +106,6 @@ const NotificationList: React.FC = () => {
       if (res.code === 0) {
         message.success('批量标记成功');
         actionRef.current?.reloadAndRest?.();
-        setSelectedRows([]);
       } else {
         message.error(`批量标记失败: ${res.message}`);
       }
@@ -178,6 +175,10 @@ const NotificationList: React.FC = () => {
       valueType: 'select',
       valueEnum: NotificationReadStatusEnumMap,
       width: 110,
+      render: (_, record) => {
+        const color = record.isRead === 1 ? 'green' : 'gold';
+        return <Tag color={color}>{NotificationReadStatusEnumMap[record.isRead!].text}</Tag>;
+      },
     },
     {
       title: '关联信息',
@@ -249,10 +250,7 @@ const NotificationList: React.FC = () => {
         rowKey="id"
         search={{ labelWidth: 100 }}
         toolBarRender={() => [
-          <Button
-            key="markAllRead"
-            onClick={() => handleMarkAllRead()}
-          >
+          <Button key="markAllRead" onClick={() => handleMarkAllRead()}>
             全部标记已读
           </Button>,
           <Button
@@ -282,12 +280,9 @@ const NotificationList: React.FC = () => {
           };
         }}
         columns={columns}
-        rowSelection={{
-          onChange: (_, selectedRows) => setSelectedRows(selectedRows),
-        }}
+        rowSelection={{}}
         scroll={{ x: 'max-content' }}
-      />
-        tableAlertOptionRender={({ selectedRowKeys, selectedRows, onCleanSelected }) => {
+        tableAlertOptionRender={({ selectedRows, onCleanSelected }) => {
           return (
             <Space size={16}>
               <Typography.Link onClick={() => handleBatchMarkRead(selectedRows)}>
@@ -305,6 +300,7 @@ const NotificationList: React.FC = () => {
             </Space>
           );
         }}
+      />
       <CreateNotificationModal
         visible={createModalVisible}
         onCancel={() => setCreateModalVisible(false)}
