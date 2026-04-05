@@ -14,7 +14,7 @@ export async function deleteChart(body: API.DeleteRequest, options?: { [key: str
   });
 }
 
-/** 智能分析 (同步) 上传 Excel 进行智能分析并返回结果 POST /ai/analysis/gen */
+/** 智能分析 (同步) 上传 Excel 进行即时智能分析并返回图表配置 POST /ai/analysis/gen */
 export async function genChartByAi(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.genChartByAiParams,
@@ -57,7 +57,7 @@ export async function genChartByAi(
   });
 }
 
-/** 智能分析 (异步) 上传 Excel 进行智能分析 (异步处理) POST /ai/analysis/gen/async */
+/** 智能分析 (异步) 上传 Excel 进行后台异步智能分析，适用于耗时较长的生成任务 POST /ai/analysis/gen/async */
 export async function genChartByAiAsync(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.genChartByAiAsyncParams,
@@ -100,7 +100,7 @@ export async function genChartByAiAsync(
   });
 }
 
-/** 获取图表详情 GET /ai/analysis/get/vo */
+/** 获取图表详情 (VO) 根据 ID 获取指定图表脱敏后的视图对象 GET /ai/analysis/get/vo */
 export async function getChartVoById(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.getChartVOByIdParams,
@@ -130,7 +130,7 @@ export async function listChartVoByPage(
   });
 }
 
-/** 分页获取我的图表列表 POST /ai/analysis/my/list/page/vo */
+/** 分页查询我的图表 获取当前登录用户所属的图表列表视图对象 POST /ai/analysis/my/list/page/vo */
 export async function listMyChartVoByPage(
   body: API.ChartQueryRequest,
   options?: { [key: string]: any },

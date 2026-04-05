@@ -42,18 +42,31 @@ declare namespace API {
   };
 
   type Chart = {
+    /** 图表ID */
     id?: number;
+    /** 分析目标 */
     goal?: string;
+    /** 图表名称 */
     name?: string;
+    /** 图表数据（CSV格式） */
     chartData?: string;
+    /** 图表类型 */
     chartType?: string;
+    /** 生成的图表配置（Echarts Option JSON） */
     genChart?: string;
+    /** 生成的分析结论 */
     genResult?: string;
+    /** 状态（wait-等待中，running-运行中，succeed-成功，failed-失败） */
     status?: string;
+    /** 执行详情（错误信息等） */
     execMessage?: string;
+    /** 创建用户ID */
     userId?: number;
+    /** 创建时间 */
     createTime?: string;
+    /** 更新时间 */
     updateTime?: string;
+    /** 是否删除 */
     isDelete?: number;
   };
 

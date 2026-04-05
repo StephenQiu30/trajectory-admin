@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** 此处后端没有提供注释 POST /user/add */
+/** 创建用户 由管理员手动创建新用户 POST /user/add */
 export async function addUser(body: API.UserAddRequest, options?: { [key: string]: any }) {
   return request<API.BaseResponseLong>('/user/add', {
     method: 'POST',
@@ -14,7 +14,39 @@ export async function addUser(body: API.UserAddRequest, options?: { [key: string
   });
 }
 
-/** 此处后端没有提供注释 POST /user/delete */
+/** 上传用户头像 上传头像图片，返回访问 URL POST /user/avatar/upload */
+export async function uploadAvatar(body: {}, file?: File, options?: { [key: string]: any }) {
+  const formData = new FormData();
+
+  if (file) {
+    formData.append('file', file);
+  }
+
+  Object.keys(body).forEach((ele) => {
+    const item = (body as any)[ele];
+
+    if (item !== undefined && item !== null) {
+      if (typeof item === 'object' && !(item instanceof File)) {
+        if (item instanceof Array) {
+          item.forEach((f) => formData.append(ele, f || ''));
+        } else {
+          formData.append(ele, new Blob([JSON.stringify(item)], { type: 'application/json' }));
+        }
+      } else {
+        formData.append(ele, item);
+      }
+    }
+  });
+
+  return request<API.BaseResponseAvatarUploadVO>('/user/avatar/upload', {
+    method: 'POST',
+    data: formData,
+    requestType: 'form',
+    ...(options || {}),
+  });
+}
+
+/** 删除用户 删除指定 ID 的用户，需要本人或管理员权限 POST /user/delete */
 export async function deleteUser(body: API.DeleteRequest, options?: { [key: string]: any }) {
   return request<API.BaseResponseBoolean>('/user/delete', {
     method: 'POST',
@@ -26,7 +58,7 @@ export async function deleteUser(body: API.DeleteRequest, options?: { [key: stri
   });
 }
 
-/** 此处后端没有提供注释 POST /user/edit */
+/** 编辑个人信息 用户修改并保存自己的个人基本资料 POST /user/edit */
 export async function editUser(body: API.UserEditRequest, options?: { [key: string]: any }) {
   return request<API.BaseResponseBoolean>('/user/edit', {
     method: 'POST',
@@ -38,7 +70,7 @@ export async function editUser(body: API.UserEditRequest, options?: { [key: stri
   });
 }
 
-/** 此处后端没有提供注释 GET /user/get */
+/** 根据 ID 获取用户 管理员根据用户 ID 获取用户详细脱敏前信息 GET /user/get */
 export async function getUserById(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.getUserByIdParams,
@@ -61,7 +93,7 @@ export async function getLoginUser(options?: { [key: string]: any }) {
   });
 }
 
-/** 此处后端没有提供注释 GET /user/get/vo */
+/** 根据 ID 获取用户信息 (VO) 获取指定用户脱敏后的视图对象 GET /user/get/vo */
 export async function getUserVoById(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.getUserVOByIdParams,
@@ -76,7 +108,7 @@ export async function getUserVoById(
   });
 }
 
-/** 此处后端没有提供注释 GET /user/get/vo/batch */
+/** 批量获取用户信息 (VO) 批量获取指定用户 ID 列表的脱敏视图信息，主要用于微服务内部调用 GET /user/get/vo/batch */
 export async function getUserVoByIds(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.getUserVOByIdsParams,
@@ -99,7 +131,7 @@ export async function isAdmin(options?: { [key: string]: any }) {
   });
 }
 
-/** 此处后端没有提供注释 POST /user/list/page */
+/** 分页获取用户列表 管理员分页获取系统所有用户原始数据 POST /user/list/page */
 export async function listUserByPage(body: API.UserQueryRequest, options?: { [key: string]: any }) {
   return request<API.BaseResponsePageUser>('/user/list/page', {
     method: 'POST',
@@ -111,7 +143,7 @@ export async function listUserByPage(body: API.UserQueryRequest, options?: { [ke
   });
 }
 
-/** 此处后端没有提供注释 POST /user/list/page/vo */
+/** 分页获取用户列表 (VO) 分页获取系统用户脱敏后的视图对象列表 POST /user/list/page/vo */
 export async function listUserVoByPage(
   body: API.UserQueryRequest,
   options?: { [key: string]: any },
@@ -179,7 +211,7 @@ export async function userLoginByGitHub(
   });
 }
 
-/** 此处后端没有提供注释 GET /user/login/github/callback */
+/** GitHub 登录回调 GitHub 授权后的重定向处理接口 GET /user/login/github/callback */
 export async function gitHubLoginCallback(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.gitHubLoginCallbackParams,
@@ -204,7 +236,7 @@ export async function userLogout(options?: { [key: string]: any }) {
   });
 }
 
-/** 此处后端没有提供注释 POST /user/update */
+/** 更新用户 管理员更新指定用户信息 POST /user/update */
 export async function updateUser(body: API.UserUpdateRequest, options?: { [key: string]: any }) {
   return request<API.BaseResponseBoolean>('/user/update', {
     method: 'POST',

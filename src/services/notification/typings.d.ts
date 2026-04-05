@@ -241,7 +241,7 @@ declare namespace API {
     userAvatar?: string;
     /** 用户简介 */
     userProfile?: string;
-    /** 用户角色 */
+    /** 用户角色 (user-普通用户 / admin-管理员 / ban-被禁言) */
     userRole?: string;
     /** 用户邮箱 */
     userEmail?: string;
